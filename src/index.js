@@ -19,10 +19,15 @@ app.set("views", path.join(__dirname, "resource/views"));
 
 //route
 app.get("/", (req, res) => {
+  console.log(req.query.q);
   return res.render("home");
 });
 app.get("/news", (req, res) => {
   return res.render("news");
+});
+app.get("/search", (req, res) => {
+  console.log(req.query.q);
+  return res.render("search");
 });
 
 //listen
