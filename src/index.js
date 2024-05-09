@@ -6,6 +6,9 @@ const {engine: handlebars} = require("express-handlebars");
 const app = express();
 const port = 3000;
 
+app.use(express.urlencoded());
+app.use(express.json());
+
 //statc file
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -19,15 +22,24 @@ app.set("views", path.join(__dirname, "resource/views"));
 
 //route
 app.get("/", (req, res) => {
-  console.log(req.query.q);
   return res.render("home");
 });
 app.get("/news", (req, res) => {
   return res.render("news");
 });
 app.get("/search", (req, res) => {
-  console.log(req.query.q);
   return res.render("search");
+});
+
+//api
+
+app.post("/search", (req, res) => {
+  console.log(req.body);
+  res.render("search");
+});
+
+app.post("/news", (req, res) => {
+  res.render("news");
 });
 
 //listen
