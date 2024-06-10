@@ -3,12 +3,18 @@ const express = require("express");
 const morgan = require("morgan");
 
 const route = require("./routes");
-const {engine: handlebars} = require("express-handlebars");
+const { engine: handlebars } = require("express-handlebars");
+
+//Connect to DB
+const db = require("./config/db");
+
+db.connect();
 
 const app = express();
 const port = 3030;
 
 app.use(express.urlencoded());
+
 app.use(express.json());
 
 //statc file
@@ -18,7 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("combined"));
 
 //template engine
-app.engine("hbs", handlebars({extname: ".hbs"}));
+app.engine("hbs", handlebars({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resource/views"));
 
@@ -26,15 +32,15 @@ app.set("views", path.join(__dirname, "resource/views"));
 route(app);
 
 app.post("/search", (req, res) => {
-  console.log(req.body);
-  res.render("search");
+    console.log(req.body);
+    res.render("search");
 });
 
 app.post("/news", (req, res) => {
-  res.render("news");
+    res.render("news");
 });
 
 //listen
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port ${port}`);
 });
