@@ -1,10 +1,12 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+
+const route = require("./routes");
 const {engine: handlebars} = require("express-handlebars");
 
 const app = express();
-const port = 3000;
+const port = 3030;
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -21,17 +23,7 @@ app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resource/views"));
 
 //route
-app.get("/", (req, res) => {
-  return res.render("home");
-});
-app.get("/news", (req, res) => {
-  return res.render("news");
-});
-app.get("/search", (req, res) => {
-  return res.render("search");
-});
-
-//api
+route(app);
 
 app.post("/search", (req, res) => {
   console.log(req.body);
