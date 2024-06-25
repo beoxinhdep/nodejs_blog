@@ -1,3 +1,5 @@
+const Topic = require("./models/Topic");
+
 class SiteController {
     // [GET] /
     index(req, res) {
